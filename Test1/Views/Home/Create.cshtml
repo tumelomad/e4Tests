@@ -4,12 +4,14 @@
 }
 
 <style type="text/css">
-    #row-blueprint{ display: none;}
-    .is-invalid{ border-color: red;}
+    #row-blueprint { display: none; }
+
+    .is-invalid { border-color: red; }
+    .error-text{ color: red;}
 </style>
 
 <div id="UsersAddEditDelete">
-    <h2>Create  </h2>
+    <h2>Create </h2>
     <div class="text-right">
         <button class="btn btn-primary" onclick="saveAll()">Save All</button>
     </div>
@@ -25,7 +27,7 @@
                 Surname
             </th>
             <th>
-                CellPhone Number
+                Cellphone Number
             </th>
             <th></th>
         </tr>
@@ -35,20 +37,25 @@
             <td class="displayName"></td>
             <td class="displaySurname"></td>
             <td class="displayCellphoneNumber"></td>
-            <td><button onclick="deleteRow(this)" class="btn btn-danger">Remove</button></td>
+            <td>
+                <button onclick="deleteRow(this)" class="btn btn-danger">Remove</button>
+            </td>
         </tr>
         <tr id="row-input">
             <td>
-                <input type="text" id="txtName" class="form-control" />
+                <input type="text" id="txtName" class="form-control"/>
+                <span class="error-text" id="txtNameError"></span>
             </td>
             <td>
-                <input type="text" id="txtSurname" class="form-control" />
+                <input type="text" id="txtSurname" class="form-control"/>
+                <span class="error-text" id="txtSurnameError"></span>
             </td>
             <td>
-                <input type="text" id="txtCellphoneNumber" class="form-control" />
+                <input type="text" id="txtCellphoneNumber" class="form-control"/>
+                <span class="error-text" id="txtCellphoneNumberError"></span>
             </td>
             <td>
-                <input type="button" id="btnAdd" value="Add" class="btn btn-primary" />
+                <input type="button" id="btnAdd" value="Add" class="btn btn-primary"/>
             </td>
         </tr>
         </tbody>
@@ -79,19 +86,39 @@
         var formValid = true;
         if (!name) {
             $("#txtName").addClass("is-invalid");
+            $("#txtNameError").html("Name is required.");
             formValid = false;
-        } else { $("#txtName").removeClass("is-invalid")}
+        } else {
+            $("#txtName").removeClass("is-invalid");
+            $("#txtNameError").html("");
+        }
 
         if (!surname) {
             $("#txtSurname").addClass("is-invalid");
+            $("#txtSurnameError").html("Surname is required.");
             formValid = false;
-        } else { $("#txtSurname").removeClass("is-invalid") }
+        } else {
+            $("#txtSurname").removeClass("is-invalid");
+            $("#txtSurnameError").html("");
+        }
 
         var reg = new RegExp(/^\d+$/);
-        if (!cellphoneNumber || !reg.test(cellphoneNumber) || cellphoneNumber.length != 10) {
+        if (!cellphoneNumber) {
             $("#txtCellphoneNumber").addClass("is-invalid");
+            $("#txtCellphoneNumberError").html("Cellphone number is required.");
             formValid = false;
-        } else { $("#txtCellphoneNumber").removeClass("is-invalid") }
+        } else if (!reg.test(cellphoneNumber)) {
+            $("#txtCellphoneNumber").addClass("is-invalid");
+            $("#txtCellphoneNumberError").html("Cellphone number should only be numeric.");
+            formValid = false;
+        } else if (cellphoneNumber.length != 10) {
+            $("#txtCellphoneNumber").addClass("is-invalid");
+            $("#txtCellphoneNumberError").html("Cellphone number is the wrong length.");
+            formValid = false;
+        } else {
+            $("#txtCellphoneNumber").removeClass("is-invalid");
+            $("#txtCellphoneNumberError").html("");
+        }
 
         return formValid;
     }
