@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Tumelo Madiba - .NET Developer Exercise";
+}
+
+<style>
+    .logo { max-width: 600px }
+
+    .jumbotron { text-align: center }
+</style>
+
+<div class="jumbotron">
+    <img src="~/Content/maxresdefault.jpg" class="logo"/>
+    <h3>Tumelo Madiba</h3>
+    <h4>.NET Developer Exercise - Test 1</h4>
+
+    <hr/><br/>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-primary" href="@Url.Action("Create", "Home")">Add Users</a>
+        </div>
+        <div class="col-md-6">
+            <a class="btn btn-warning" href="@Url.Action("Get", "Home")" >View Users</a>
+        </div>
+    </div>
+</div>

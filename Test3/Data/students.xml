@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<students>
+  <student>
+    <Id>81ee8c00-d151-4ccf-b7b9-25cb1d4d181a</Id>
+    <Name>Test Name 1</Name>
+    <Surname>Test Surname 1</Surname>
+    <CellPhoneNumber>0712345671</CellPhoneNumber>
+    <YearOfStudy>3</YearOfStudy>
+    <CourseOfStudy>Test Course Of Study 1</CourseOfStudy>
+    <StudentNumber>Test StudentNumber 1</StudentNumber>
+    <DateOfBirth>2010-10-27T00:00:00</DateOfBirth>
+    <DateCreated>03/30/2023 14:04:00</DateCreated>
+    <LastUpdated>03/30/2023 14:04:00</LastUpdated>
+  </student>
+  <student>
+    <Id>d3d83672-4eda-4c72-8098-b61759625adf</Id>
+    <Name>John</Name>
+    <Surname>Doe</Surname>
+    <CellPhoneNumber>0712345678</CellPhoneNumber>
+    <YearOfStudy>1</YearOfStudy>
+    <CourseOfStudy>Electrical Engineering</CourseOfStudy>
+    <StudentNumber>TestingStudentNumber1 changed</StudentNumber>
+    <DateOfBirth>01/16/1980 00:00:00</DateOfBirth>
+    <DateCreated>03/30/2023 14:04:00</DateCreated>
+    <LastUpdated>03/30/2023 14:19:21</LastUpdated>
+  </student>
+  <student>
+    <Id>97cda05a-1435-47ad-b0a6-05d593ac68cc</Id>
+    <Name>Test Name 4</Name>
+    <Surname>Test Surname 4</Surname>
+    <CellPhoneNumber>0712345674</CellPhoneNumber>
+    <YearOfStudy>1</YearOfStudy>
+    <CourseOfStudy>Test Course Of Study 4</CourseOfStudy>
+    <StudentNumber>Test StudentNumber 4</StudentNumber>
+    <DateOfBirth>2010-10-27T00:00:00</DateOfBirth>
+    <DateCreated>03/30/2023 14:04:00</DateCreated>
+    <LastUpdated>03/30/2023 14:04:00</LastUpdated>
+  </student>
+  <student>
+    <Id>251ba344-1e46-4a94-a40c-65d1c7572749</Id>
+    <Name>John</Name>
+    <Surname>Doe</Surname>
+    <CellPhoneNumber>0712345678</CellPhoneNumber>
+    <YearOfStudy>1</YearOfStudy>
+    <CourseOfStudy>Electrical Engineering</CourseOfStudy>
+    <StudentNumber>TestingStudentNumber1</StudentNumber>
+    <DateOfBirth>1980-01-15T00:00:00</DateOfBirth>
+    <DateCreated>03/30/2023 14:05:56</DateCreated>
+    <LastUpdated>03/30/2023 14:05:56</LastUpdated>
+  </student>
+</students>
