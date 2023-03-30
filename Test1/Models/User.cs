@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Test1.Models
 {
@@ -12,6 +9,8 @@ namespace Test1.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public string CellPhoneNumber { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime LastUpdated { get; set; }
     }
 
     public class UserBindingModel
@@ -60,6 +59,9 @@ namespace Test1.Models
         [Display(Name = "Cellphone Number")]
         public string CellPhoneNumber { get; set; }
 
+        [Display(Name = "Last Updated")]
+        public DateTime LastUpdated { get; set; }
+
         public static implicit operator UserViewModel(User user)
         {
             return new UserViewModel
@@ -67,7 +69,8 @@ namespace Test1.Models
                 Id = user.Id,
                 Name = user.Name,
                 Surname = user.Surname,
-                CellPhoneNumber = user.CellPhoneNumber
+                CellPhoneNumber = user.CellPhoneNumber,
+                LastUpdated = user.LastUpdated
             };
         }
     }

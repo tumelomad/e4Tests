@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
@@ -21,7 +22,7 @@ namespace Test1.Data
             }
             catch (Exception exception)
             {
-
+                // logging here
                 throw;
             }
         }
@@ -31,10 +32,16 @@ namespace Test1.Data
             var items = from xElement in _fileData.Descendants("user")
                 select new User
                 {
-                    Id = xElement.Element("id") != null ? Guid.Parse(xElement.Element("id").Value) : new Guid(),
-                    Name = xElement.Element("name")?.Value,
-                    Surname = xElement.Element("surname")?.Value,
-                    CellPhoneNumber = xElement.Element("cellPhoneNumber")?.Value
+                    Id = xElement.Element("Id") != null ? Guid.Parse(xElement.Element("Id").Value) : new Guid(),
+                    Name = xElement.Element("Name")?.Value,
+                    Surname = xElement.Element("Surname")?.Value,
+                    CellPhoneNumber = xElement.Element("CellPhoneNumber")?.Value,
+                    DateCreated = !string.IsNullOrEmpty(xElement.Element("DateCreated")?.Value)
+                        ? DateTime.Parse(xElement.Element("DateCreated").Value)
+                        : new DateTime(),
+                    LastUpdated = !string.IsNullOrEmpty(xElement.Element("LastUpdated")?.Value)
+                        ? DateTime.Parse(xElement.Element("LastUpdated").Value)
+                        : new DateTime()
                 };
 
             return items;
@@ -43,7 +50,7 @@ namespace Test1.Data
         public User GetById(Guid id)
         {
             XElement xElement = _fileData.Descendants("user")
-                .FirstOrDefault(element => element.Element("id").Value == id.ToString());
+                .FirstOrDefault(element => element.Element("Id").Value == id.ToString());
 
             if (xElement == null)
             {
@@ -52,20 +59,29 @@ namespace Test1.Data
 
             return new User
             {
-                Id = Guid.Parse(xElement.Element("id").Value),
-                Name = xElement.Element("name")?.Value,
-                Surname = xElement.Element("surname")?.Value,
-                CellPhoneNumber = xElement.Element("cellPhoneNumber")?.Value
+                Id = Guid.Parse(xElement.Element("Id").Value),
+                Name = xElement.Element("Name")?.Value,
+                Surname = xElement.Element("Surname")?.Value,
+                CellPhoneNumber = xElement.Element("CellPhoneNumber")?.Value,
+                DateCreated = !string.IsNullOrEmpty(xElement.Element("DateCreated")?.Value)
+                    ? DateTime.Parse(xElement.Element("DateCreated").Value)
+                    : new DateTime(),
+                LastUpdated = !string.IsNullOrEmpty(xElement.Element("LastUpdated")?.Value)
+                    ? DateTime.Parse(xElement.Element("LastUpdated").Value)
+                    : new DateTime()
             };
         }
 
         public void Add(User model)
         {
             XElement xElement = new XElement("user",
-                new XElement("id", Guid.NewGuid().ToString()),
-                new XElement("name",model.Name),
-                new XElement("surname", model.Surname),
-                new XElement("cellPhoneNumber", model.CellPhoneNumber));
+                new XElement("Id", Guid.NewGuid().ToString()),
+                new XElement("Name", model.Name),
+                new XElement("Surname", model.Surname),
+                new XElement("CellPhoneNumber", model.CellPhoneNumber),
+                new XElement("DateCreated", DateTime.Now.ToString(CultureInfo.InvariantCulture)),
+                new XElement("LastUpdated", DateTime.Now.ToString(CultureInfo.InvariantCulture))
+            );
 
             _fileData.Root?.Add(xElement);
             _fileData.Save(_dataLocation);
@@ -76,10 +92,13 @@ namespace Test1.Data
             foreach (var user in users)
             {
                 XElement xElement = new XElement("user",
-                    new XElement("id", Guid.NewGuid().ToString()),
-                    new XElement("name", user.Name),
-                    new XElement("surname", user.Surname),
-                    new XElement("cellPhoneNumber", user.CellPhoneNumber));
+                    new XElement("Id", Guid.NewGuid().ToString()),
+                    new XElement("Name", user.Name),
+                    new XElement("Surname", user.Surname),
+                    new XElement("CellPhoneNumber", user.CellPhoneNumber),
+                    new XElement("DateCreated", DateTime.Now.ToString(CultureInfo.InvariantCulture)),
+                    new XElement("LastUpdated", DateTime.Now.ToString(CultureInfo.InvariantCulture))
+                );
 
                 _fileData.Root?.Add(xElement);
             }
@@ -90,13 +109,14 @@ namespace Test1.Data
         public void Edit(User model)
         {
             XElement xElement = _fileData.Descendants("user")
-                .FirstOrDefault(element => element.Element("id").Value == model.Id.ToString());
+                .FirstOrDefault(element => element.Element("Id").Value == model.Id.ToString());
 
             if (xElement != null)
             {
-                xElement.Element("name").Value = model.Name;
-                xElement.Element("surname").Value = model.Surname;
-                xElement.Element("cellPhoneNumber").Value = model.CellPhoneNumber;
+                xElement.Element("Name").Value = model.Name;
+                xElement.Element("Surname").Value = model.Surname;
+                xElement.Element("CellPhoneNumber").Value = model.CellPhoneNumber;
+                xElement.Element("LastUpdated").Value = DateTime.Now.ToString(CultureInfo.InvariantCulture);
 
                 _fileData.Save(_dataLocation);
                 return;
@@ -108,7 +128,7 @@ namespace Test1.Data
         public void Delete(Guid id)
         {
             XElement xElement = _fileData.Descendants("user")
-                .FirstOrDefault(element => element.Element("id").Value == id.ToString());
+                .FirstOrDefault(element => element.Element("Id").Value == id.ToString());
 
             if (xElement != null)
             {

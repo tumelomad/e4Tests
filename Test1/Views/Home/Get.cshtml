@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>View Users</h2>
+<h4>View Users</h4>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -20,6 +20,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CellPhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastUpdated)
         </th>
         <th></th>
     </tr>
@@ -37,9 +40,12 @@
                 @Html.DisplayFor(modelItem => item.CellPhoneNumber)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.LastUpdated)
+            </td>
+            <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "GetById", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new {@class = "deleteLink"})
             </td>
         </tr>
     }
