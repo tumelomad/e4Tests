@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Test2
@@ -18,21 +19,27 @@ namespace Test2
             Console.WriteLine(
                 "Alternatively, please use this format to specify a custom delimiter //[delimiter]\\n[numbers]. eg, \"//;\\n1;2\"");
             Console.WriteLine();
-            Console.WriteLine("Please enter number:");
 
-            try
+            do
             {
-                string input = Console.ReadLine();
-                var result = StringCalculator.Add(input);
+                try
+                {
+                    Console.WriteLine("Please enter numbers:");
+                    string input = Console.ReadLine();
+                    var result = StringCalculator.Add(input);
 
-                Console.WriteLine($"Answer: {result}");
-                Console.ReadLine();
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-                Console.ReadLine();
-            }
+                    Console.WriteLine($"Answer: {result}");
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception.Message);
+                }
+
+                Console.WriteLine("=================================");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Press ESC to exist, or any key to restart calculator.");
+            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
         }
     }
 
@@ -45,7 +52,7 @@ namespace Test2
                 return 0;
             }
 
-            var delimiters = new[] { ",", "\n" };
+            var delimiters = new[] { ",", "\n", "\\n" };
 
             // accounting for specified delimiter
             if (input.StartsWith("//"))
@@ -55,10 +62,23 @@ namespace Test2
                 input = input.Substring(4);
             }
 
-            var numbersList = input
+            var splitList = input
                 .Split(delimiters, StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
                 .ToList();
+
+            var numbersList = new List<int>();
+
+            foreach (var inp in splitList)
+            {
+                try
+                {
+                    numbersList.Add(int.Parse(inp));
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception($"{inp} has a bad format.");
+                }
+            }
 
             // check for negatives
             if (numbersList.Any(i => i < 0))
